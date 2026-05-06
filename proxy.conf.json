@@ -1,0 +1,11 @@
+{
+    "/api-mandi": {
+        "target": "https://api.data.gov.in",
+        "secure": true,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/api-mandi": ""
+        },
+        "logLevel": "debug"
+    }
+}

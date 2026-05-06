@@ -1,0 +1,16 @@
+:host {
+    display: block;
+}
+
+.nav-link {
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #e9ecef;
+}
+
+.nav-link.active {
+    background-color: #198754;
+    /* Success green color */
+}

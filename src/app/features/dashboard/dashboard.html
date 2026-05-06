@@ -1,0 +1,166 @@
+<div class="container-fluid py-4">
+    <h2 class="mb-4 text-dark fw-bold">Live India Mandi Rates</h2>
+
+    <!-- Filter Section -->
+    <div class="card p-3 mb-4 shadow-sm border-0 bg-light">
+        <div class="row g-3 align-items-end">
+
+            <!-- State Dropdown -->
+            <div class="col-md-3">
+                <label class="form-label fw-bold">State / UT</label>
+                <select class="form-select" [(ngModel)]="selectedState" (change)="onStateChange()">
+                    <option value="">-- Select State --</option>
+                    <option *ngFor="let state of stateList" [value]="state">{{ state }}</option>
+                </select>
+            </div>
+
+            <!-- District Dropdown -->
+            <div class="col-md-3">
+                <label class="form-label fw-bold">District</label>
+                <select class="form-select" [(ngModel)]="selectedDistrict" [disabled]="!selectedState"
+                    (change)="onFilterChange()">
+                    <option value="">-- Select District --</option>
+                    <option *ngFor="let dist of districtList" [value]="dist">{{ dist }}</option>
+                </select>
+            </div>
+
+            <!-- Commodity Filter -->
+            <div class="col-md-3">
+                <label class="form-label fw-bold">Commodity</label>
+                <select class="form-select" [(ngModel)]="selectedCommodity" (change)="onFilterChange()">
+                    <option value="">All Commodities</option>
+                    <option *ngFor="let comm of commodityList" [value]="comm">{{comm}}</option>
+                </select>
+            </div>
+
+            <!-- Get Rates Button -->
+            <div class="col-md-3">
+                <button class="btn btn-success w-100" (click)="onGetRates()"
+                    [disabled]="!selectedState || !selectedDistrict || isLoading">
+                    <span *ngIf="!isLoading">Get Latest Rates</span>
+                    <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Status Message with Timestamp -->
+    <div *ngIf="selectedState"
+        class="alert alert-info d-flex justify-content-between align-items-center py-2 shadow-sm">
+        <!-- <div>
+            Showing results for: <strong>{{ selectedState }}</strong>
+            <span *ngIf="selectedDistrict"> > <strong>{{ selectedDistrict }}</strong></span>
+        </div> -->
+
+        <!-- Timestamp Section -->
+        <div *ngIf="lastRefreshedAt" class="small text-muted">
+            <i class="bi bi-clock-history me-1"></i>
+            Last Updated: <strong>{{ lastRefreshedAt | date:'shortTime' }}</strong> (Today)
+        </div>
+    </div>
+
+    <!-- Status Message -->
+    <div *ngIf="selectedState" class="alert alert-info py-2">
+        Showing results for: <strong>{{ selectedState }}</strong>
+        <span *ngIf="selectedDistrict"> > <strong>{{ selectedDistrict }}</strong></span>
+        <span *ngIf="selectedCommodity"> > <strong>{{ selectedCommodity }}</strong></span>
+    </div>
+
+    <!-- Table Section -->
+    <div class="mt-4" *ngIf="!isLoading; else loadingTemplate">
+
+        <!-- Table Card: Tabhi dikhega jab data filteredRates mein hoga -->
+        <div class="card shadow-sm border-0" *ngIf="filteredRates.length > 0; else noDataTemplate">
+
+            <!-- Header with Total Count -->
+            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center py-3">
+                <h5 class="mb-0">
+                    <i class="bi bi-table me-2"></i>Mandi Market Rates
+                </h5>
+                <span class="badge rounded-pill bg-light text-success fw-bold px-3">
+                    Total Records: {{ filteredRates.length }}
+                </span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-3">Commodity</th>
+                            <th>Market (Mandi)</th>
+                            <th>Variety</th>
+                            <th>Min Price</th>
+                            <th>Max Price</th>
+                            <th>Modal Price (Avg)</th>
+                            <th class="pe-3">Update Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <!-- paginatedData variable use ho raha hai pagination ke liye -->
+                        <tr *ngFor="let rate of paginatedData">
+                            <td class="fw-bold ps-3 text-dark">{{ rate.commodity }}</td>
+                            <td>{{ rate.market }}</td>
+                            <td>
+                                <span class="badge bg-secondary text-capitalize" style="font-weight: 500;">
+                                    {{ rate.variety || 'Standard' }}
+                                </span>
+                            </td>
+                            <td class="text-muted">₹{{ rate.min_price | number }}</td>
+                            <td class="text-muted">₹{{ rate.max_price | number }}</td>
+                            <td>
+                                <span class="text-success fw-bold">₹{{ rate.modal_price | number }}</span>
+                            </td>
+                            <td class="pe-3 small text-secondary">{{ rate.arrival_date }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination Footer -->
+            <div class="card-footer bg-white border-top-0 py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <!-- Previous Button -->
+                    <button class="btn btn-sm btn-outline-success px-3" [disabled]="currentPage === 1"
+                        (click)="currentPage = currentPage - 1">
+                        <i class="bi bi-chevron-left"></i> Previous
+                    </button>
+
+                    <!-- Page Info -->
+                    <div class="text-center">
+                        <span class="text-muted small">
+                            Showing Page <strong>{{ currentPage }}</strong> of <strong>{{ totalPages }}</strong>
+                        </span>
+                    </div>
+
+                    <!-- Next Button -->
+                    <button class="btn btn-sm btn-outline-success px-3"
+                        [disabled]="currentPage === totalPages || totalPages === 0"
+                        (click)="currentPage = currentPage + 1">
+                        Next <i class="bi bi-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- No Data Template: Card ke bahar taaki full width alert dikhe -->
+    <ng-template #noDataTemplate>
+        <div class="alert alert-warning border-0 shadow-sm mt-4 d-flex align-items-center" role="alert">
+            <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
+            <div>
+                <strong>Data Not Found!</strong> Filhal is selection ({{selectedState}} > {{selectedDistrict}}) ke liye
+                koi records uplabdha nahi hain.
+            </div>
+        </div>
+    </ng-template>
+
+    <!-- Loading Template -->
+    <ng-template #loadingTemplate>
+        <div class="text-center my-5 py-5">
+            <div class="spinner-border text-success" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="text-muted mt-3 fw-bold">Fetching latest market data, please wait...</p>
+        </div>
+    </ng-template>
+</div>
