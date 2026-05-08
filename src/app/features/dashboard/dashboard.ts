@@ -62,37 +62,56 @@ export class Dashboard implements OnInit {
     this.commodityList = [...new Set(data.map(item => item.commodity))].sort();
   }
 
+  fetchDataByLocation(state: string, district: string) {
+    this.isLoading = true;
+    this.mandiService.getFilteredRates(state, district).subscribe({
+      next: (data) => {
+        this.allMandiData = data;
+        this.updateCommodityList(data);
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error("Fetch Error:", err);
+        this.isLoading = false;
+      }
+    });
+  }
+
   onStateChange() {
     this.selectedDistrict = '';
-    this.selectedCommodity = ''; // Reset filters
+    this.selectedCommodity = '';
     this.currentPage = 1;
 
     if (this.selectedState) {
+      // Case 1: Jab State selected ho
       this.districtList = INDIA_DATA[this.selectedState] || [];
+      this.fetchDataByLocation(this.selectedState, '');
     } else {
+      // Case 2: Jab State select nahi hai (User ne clear kar diya)
       this.districtList = [];
+      this.loadInitialData(); // Wapas India-wide data mangwa lein
     }
   }
 
   onFilterChange() {
-    this.currentPage = 1; // Filter badalne par hamesha page 1 par jayein
-    console.log(`Filters applied: ${this.selectedState}, ${this.selectedDistrict}, ${this.selectedCommodity}`);
+    this.currentPage = 1;
+    if (this.selectedState) {
+      // District select ho ya na ho, state ka data toh aayega hi
+      this.fetchDataByLocation(this.selectedState, this.selectedDistrict);
+    }
   }
 
   // Sirf filtered data ke liye (Getter)
   get filteredRates(): MandiRates[] {
     return this.allMandiData.filter(item => {
-      // API data aur selection ke beech case-insensitive matching
-      const stateMatch = !this.selectedState ||
-        item.state.toLowerCase() === this.selectedState.toLowerCase();
-
-      const districtMatch = !this.selectedDistrict ||
-        item.district.toLowerCase() === this.selectedDistrict.toLowerCase();
-
+      // 1. Commodity filter ka logic
+      // Agar 'All Commodities' selected hai ya kuch bhi select nahi hai, toh sab dikhao
       const commodityMatch = !this.selectedCommodity ||
+        this.selectedCommodity === 'All' ||
+        this.selectedCommodity === 'All Commodities' ||
         item.commodity === this.selectedCommodity;
 
-      return stateMatch && districtMatch && commodityMatch;
+      return commodityMatch;
     });
   }
 
@@ -109,10 +128,30 @@ export class Dashboard implements OnInit {
   }
 
   // Button click par manually trigger karne ke liye agar zaroorat ho
+  // Dashboard.ts mein changes
+
   onGetRates() {
-    this.currentPage = 1;
     if (!this.selectedState || !this.selectedDistrict) {
       alert("Please select both State and District");
+      return;
     }
+
+    this.isLoading = true;
+    this.currentPage = 1;
+
+    // Purane logic (filtering from 1000 records) ke bajaye direct API call karein
+    this.mandiService.getFilteredRates(this.selectedState, this.selectedDistrict).subscribe({
+      next: (data) => {
+        this.allMandiData = data; // Ab isme sirf us district ke saare records honge
+        this.updateCommodityList(data);
+        this.lastRefreshedAt = new Date();
+        this.isLoading = false;
+        console.log(`Fetched ${data.length} records for ${this.selectedDistrict}`);
+      },
+      error: (err) => {
+        console.error('Error fetching filtered data', err);
+        this.isLoading = false;
+      }
+    });
   }
 }

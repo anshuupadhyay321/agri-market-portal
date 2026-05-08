@@ -1,27 +1,108 @@
-<div class="container-fluid">
-    <h2 class="mb-4">Current Market Rates (Bihar-Buxar)</h2>
-    <table class="table table-striped border">
-        <thead class="table-dark">
-            <tr>
-                <th>Crop Name</th>
-                <th>Market (Mandi)</th>
-                <th>Price (per Quintal)</th>
-                <th>Trend</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Wheat (Gehun)</td>
-                <td>Buxar Mandi</td>
-                <td>₹ 2,125</td>
-                <td class="text-success">↑</td>
-            </tr>
-            <tr>
-                <td>Rice (Chawal)</td>
-                <td>Itarhi Mandi</td>
-                <td>₹ 1,850</td>
-                <td class="text-danger">↓</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="container mt-4">
+    <h3 class="mb-4 text-success">
+        <i class="bi bi-graph-up-arrow me-2"></i>Mandi Market Watch
+    </h3>
+
+    <div class="card shadow-sm border-0 mb-4 p-3 bg-light">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Select State</label>
+                <select class="form-select" [(ngModel)]="selectedState" (change)="updateDistricts()">
+                    <option *ngFor="let state of statesList" [value]="state">
+                        {{ state }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Select District</label>
+                <select class="form-select" [(ngModel)]="selectedDistrict" (ngModelChange)="onSearch()">
+                    <option *ngFor="let dist of districtsList" [value]="dist">{{ dist }}</option>
+                </select>
+            </div>
+
+            <div class="col-md-4 d-flex align-items-end">
+                <button class="btn btn-success w-100" (click)="onSearch()" [disabled]="isLoading">
+                    <i class="bi bi-search me-2"></i> Get Latest Rates
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="isLoading" class="text-center my-5">
+        <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2 text-muted">Latest Mandi rates fetch ho rahe hain, kripya pratiksha karein...</p>
+    </div>
+
+    <div *ngIf="!isLoading && mandiData.length === 0" class="alert alert-info text-center shadow-sm">
+        <i class="bi bi-info-circle me-2"></i>
+        Is location ke liye abhi koi data nahi mila. Doosra district try karein.
+    </div>
+
+    <div class="row" *ngIf="!isLoading && mandiData.length > 0">
+        <div class="col-md-4 mb-4" *ngFor="let item of paginatedCards">
+            <div class="card h-100 border-start border-success border-4 shadow-sm hover-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="card-title mb-0 text-success fw-bold">{{ item.commodity }}</h5>
+                        <span class="badge bg-light text-dark border small">{{ item.arrival_date }}</span>
+                    </div>
+
+                    <p class="text-muted small mb-1">
+                        <i class="bi bi-geo-alt-fill me-1 text-danger"></i>
+                        <strong>Mandi:</strong> {{ item.market }}
+                    </p>
+                    <p class="text-muted small mb-3">
+                        <i class="bi bi-tag-fill me-1 text-primary"></i>
+                        <strong>Variety:</strong> {{ item.variety }}
+                    </p>
+
+                    <div class="row text-center border-top pt-3 bg-light-subtle">
+                        <div class="col-4 border-end">
+                            <small class="text-muted d-block" style="font-size: 0.7rem;">MIN</small>
+                            <span class="fw-bold text-danger">₹{{ item.min_price }}</span>
+                        </div>
+                        <div class="col-4 border-end">
+                            <small class="text-muted d-block" style="font-size: 0.7rem;">MAX</small>
+                            <span class="fw-bold text-primary">₹{{ item.max_price }}</span>
+                        </div>
+                        <div class="col-4">
+                            <small class="text-muted d-block" style="font-size: 0.7rem;">MODAL</small>
+                            <span class="fw-bold text-success fs-5">₹{{ item.modal_price }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-white border-top-0 py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- Previous Button -->
+                <button class="btn btn-sm btn-outline-success px-3" [disabled]="currentPage === 1"
+                    (click)="currentPage = currentPage - 1">
+                    <i class="bi bi-chevron-left"></i> Previous
+                </button>
+
+                <!-- Page Info -->
+                <div class="text-center">
+                    <span class="text-muted small">
+                        Showing Page <strong>{{ currentPage }}</strong> of <strong>{{ totalPages }}</strong>
+                    </span>
+                </div>
+
+                <!-- Next Button -->
+                <button class="btn btn-sm btn-outline-success px-3"
+                    [disabled]="currentPage === totalPages || totalPages === 0" (click)="currentPage = currentPage + 1">
+                    Next <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!isLoading && mandiData.length === 0" class="alert alert-info text-center mt-4">
+        <i class="bi bi-info-circle me-2"></i>
+        Is selection ke liye koi data nahi mila.
+    </div>
+
 </div>

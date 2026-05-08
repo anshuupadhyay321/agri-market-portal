@@ -1,0 +1,40 @@
+<div class="auth-container d-flex align-items-center justify-content-center">
+    <div class="card auth-card shadow-lg border-0 p-4">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-success">Kisan Portal</h2>
+            <p class="text-muted">Naya account banayein</p>
+        </div>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+            <div class="mb-3">
+                <label class="form-label fw-bold">Full Name</label>
+                <input type="text" class="form-control" formControlName="fullName" placeholder="Anshu Upadhyay"
+                    [class.is-invalid]="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched">
+                <div class="invalid-feedback">Naam kam se kam 3 characters ka ho.</div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Email Address</label>
+                <input type="email" class="form-control" formControlName="email" placeholder="name@example.com"
+                    [class.is-invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                <div class="invalid-feedback">Sahi email address dalein.</div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold">Password</label>
+                <input type="password" class="form-control" formControlName="password" placeholder="******"
+                    [class.is-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                <div class="invalid-feedback">Password kam se kam 6 digits ka ho.</div>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 py-2 fw-bold" [disabled]="registerForm.invalid">
+                Register Now
+            </button>
+        </form>
+
+        <div class="text-center mt-3">
+            <span class="small">Pehle se account hai? </span>
+            <a routerLink="/login" class="text-success fw-bold text-decoration-none">Login Here</a>
+        </div>
+    </div>
+</div>

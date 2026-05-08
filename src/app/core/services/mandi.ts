@@ -16,6 +16,39 @@ export class Mandi {
     });
   }
 
+  // Filter ke saath data fetch karne ke liye naya method
+  getFilteredRates(state: string, district: string): Observable<any> {
+    let url = `${this.apiUrl}?api-key=${this.apiKey}&format=json&limit=1000`;
+
+    // Sirf tabhi filter jodein jab value majood ho
+    if (state) {
+      url += `&filters[state]=${encodeURIComponent(state)}`;
+    }
+
+    // AGAR district khali hai toh filter bilkul mat jodein
+    if (district && district !== '') {
+      url += `&filters[district]=${encodeURIComponent(district)}`;
+    }
+    return this.http.get<MandiApiResponse>(url).pipe(
+      map((response: MandiApiResponse) => {
+        if (!response || !response.records) return [];
+
+        // Aapka wahi transformation logic jo pehle tha
+        return response.records.map((record: any) => ({
+          state: record.state,
+          district: record.district,
+          market: record.market,
+          commodity: record.commodity,
+          variety: record.variety,
+          min_price: +record.min_price || 0,
+          max_price: +record.max_price || 0,
+          modal_price: +record.modal_price || 0,
+          arrival_date: record.arrival_date
+        }));
+      })
+    );
+  }
+
   // Pure Bharat ka live data fetch karne ke liye
   getLiveRates(): Observable<MandiRates[]> {
     // Local variable define kiya

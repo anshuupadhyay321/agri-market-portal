@@ -1,7 +1,110 @@
-<div class="container-fluid">
-    <h2 class="mb-4">Crop Inventory Management</h2>
-    <div class="card p-3 shadow-sm">
-        <p>Yahan aapka stock level aur available crops ki list dikhegi.</p>
-        <button class="btn btn-success btn-sm w-25">Add New Stock</button>
+<div class="container-fluid py-4">
+    <h3 class="text-success mb-4"><i class="bi bi-box-seam me-2"></i>Inventory Management</h3>
+
+    <div class="card shadow-sm mb-4 border-0">
+        <div class="card-header bg-success text-white">Add New Stock</div>
+        <div class="card-body">
+            <form [formGroup]="inventoryForm" (ngSubmit)="addItem()" class="row g-3">
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="Item Name" formControlName="itemName">
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select" formControlName="unit">
+                        <option value="kg">Kilogram (kg)</option>
+                        <option value="ltr">Liter (ltr)</option>
+                        <option value="pcs">Pieces (pcs)</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" class="form-control" placeholder="Qty" formControlName="quantity">
+                </div>
+                <div class="col-md-2">
+                    <input type="number" class="form-control" placeholder="Price/Unit" formControlName="pricePerUnit">
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-success w-100" [disabled]="inventoryForm.invalid">
+                        + Add to Stock
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <div class="table-responsive bg-white rounded shadow-sm">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Item Name</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Total Value</th>
+                    <th>Last Updated</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of paginatedInventory" [class.table-danger]="item.quantity < 5">
+                    <!-- 1. Item Name Column -->
+                    <td class="fw-bold">
+                        {{ item.itemName }}
+                        <span *ngIf="item.quantity < 5" class="badge bg-danger ms-2">Low Stock!</span>
+                    </td>
+
+                    <!-- 2. Quantity Column -->
+                    <td>
+                        <span class="badge" [ngClass]="item.quantity < 5 ? 'bg-danger' : 'bg-info text-dark'">
+                            {{ item.quantity }} {{ item.unit }}
+                        </span>
+                    </td>
+
+                    <!-- 3. Price Per Unit Column -->
+                    <td>₹{{ item.pricePerUnit }}</td>
+
+                    <!-- 4. Total Value Column -->
+                    <td class="text-success fw-bold">₹{{ item.totalValue }}</td>
+
+                    <!-- 5. Last Updated Column -->
+                    <td class="small text-muted">{{ item.lastUpdated | date:'medium' }}</td>
+
+                    <!-- 6. Action Column (Delete Button) -->
+                    <td>
+                        <button class="btn btn-sm btn-outline-danger" (click)="deleteItem(item.id)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <!-- Agar list khali ho -->
+                <tr *ngIf="inventoryList.length === 0">
+                    <td colspan="6" class="text-center py-4 text-muted">
+                        Stock khali hai, naya maal jodein!
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Pagination Controls -->
+        <div class="card-footer bg-white border-top-0 py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- Previous Button -->
+                <button class="btn btn-sm btn-outline-success px-3" [disabled]="currentPage === 1"
+                    (click)="currentPage = currentPage - 1">
+                    <i class="bi bi-chevron-left"></i> Previous
+                </button>
+
+                <!-- Page Info -->
+                <div class="text-center">
+                    <span class="text-muted small">
+                        Showing Page <strong>{{ currentPage }}</strong> of <strong>{{ totalPages }}</strong>
+                    </span>
+                </div>
+
+                <!-- Next Button -->
+                <button class="btn btn-sm btn-outline-success px-3"
+                    [disabled]="currentPage === totalPages || totalPages === 0" (click)="currentPage = currentPage + 1">
+                    Next <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
 </div>
