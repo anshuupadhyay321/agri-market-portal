@@ -12,12 +12,18 @@ import { CommonModule } from '@angular/common';
 })
 export class Login {
   loginForm: FormGroup;
+  // login.ts mein variable add karein
+  showPassword: boolean = false;
 
   constructor(private fb: FormBuilder, private authService: Auth, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
+  }
+  // Toggle karne ke liye function
+  togglePassword() {
+    this.showPassword = !this.showPassword;
   }
 
   onLogin() {

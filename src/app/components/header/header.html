@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
     <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="#">
+        <a class="navbar-brand fw-bold" href="#" data-tooltip="Go to Home Dashboard">
             <i class="bi bi-shop me-2"></i>Agri-Business Portal
         </a>
 
@@ -11,7 +11,8 @@
                     Welcome, <strong>{{ displayName }}</strong>
                 </span>
             </div>
-            <button class="btn btn-outline-light ms-2" (click)="onLogout()">
+            <!-- Logout Button with Dynamic Disable -->
+            <button class="btn btn-outline-light ms-2" (click)="onLogout()" [disabled]="!isLoggedIn">
                 Logout
             </button>
         </div>

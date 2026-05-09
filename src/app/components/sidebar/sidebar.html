@@ -1,30 +1,49 @@
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-light border-end" style="height: 100vh;">
+<!-- Sidebar main container mein transition aur dynamic class add karein -->
+<div class="sidebar-container d-flex flex-column p-3 bg-light border-end"
+    [class.compact-sidebar]="SettingsService.compactMode()">
+
+    <!-- Navigation Links -->
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <a routerLink="/dashboard" routerLinkActive="active" class="nav-link active mb-2" aria-current="page">
-                <i class="bi bi-speedometer2 me-2"></i> Dashboard
+            <a routerLink="/dashboard" routerLinkActive="active" class="nav-link mb-2"
+                [attr.data-tooltip]="SettingsService.compactMode() ? 'Dashboard' : null">
+                <i class="bi bi-speedometer2"></i>
+                <!-- Text sirf tabhi hide hoga jab signal true ho -->
+                <span class="ms-2" *ngIf="!SettingsService.compactMode()">Dashboard</span>
             </a>
         </li>
+
         <li>
-            <a routerLink="/market-rates" routerLinkActive="active" class="nav-link link-dark mb-2">
-                <i class="bi bi-currency-exchange me-2"></i> Market Rates
+            <a routerLink="/market-rates" routerLinkActive="active" class="nav-link link-dark mb-2"
+                [attr.data-tooltip]="SettingsService.compactMode() ? 'Market Rates' : null">
+                <i class="bi bi-currency-exchange"></i>
+                <span class="ms-2" *ngIf="!SettingsService.compactMode()">Market Rates</span>
             </a>
         </li>
+
         <li>
-            <a routerLink="/inventory" routerLinkActive="active" class="nav-link link-dark mb-2">
-                <i class="bi bi-box-seam me-2"></i> Inventory
+            <a routerLink="/inventory" routerLinkActive="active" class="nav-link link-dark mb-2"
+                [attr.data-tooltip]="SettingsService.compactMode() ? 'Inventory' : null">
+                <i class="bi bi-box-seam"></i>
+                <span class="ms-2" *ngIf="!SettingsService.compactMode()">Inventory</span>
             </a>
         </li>
+
         <li>
-            <a routerLink="/vendors" routerLinkActive="active" class="nav-link link-dark mb-2">
-                <i class="bi bi-people me-2"></i> Vendors
+            <a routerLink="/vendors" routerLinkActive="active" class="nav-link link-dark mb-2"
+                [attr.data-tooltip]="SettingsService.compactMode() ? 'Vendors' : null">
+                <i class="bi bi-people"></i>
+                <span class="ms-2" *ngIf="!SettingsService.compactMode()">Vendors</span>
             </a>
         </li>
     </ul>
-    <hr>
-    <div class="dropdown">
-        <span class="d-flex align-items-center link-dark text-decoration-none">
-            <strong>Settings</strong>
-        </span>
+
+    <!-- Bottom Section: Settings (Isse bhi fix kiya gaya hai) -->
+    <div class="mt-auto pt-3 border-top">
+        <a routerLink="/settings" routerLinkActive="active" class="nav-link link-dark d-flex align-items-center"
+            [attr.data-tooltip]="SettingsService.compactMode() ? 'Settings' : null">
+            <i class="bi bi-gear-fill"></i>
+            <strong class="ms-2" *ngIf="!SettingsService.compactMode()">Settings</strong>
+        </a>
     </div>
 </div>

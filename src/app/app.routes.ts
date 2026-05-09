@@ -3,6 +3,7 @@ import { Dashboard } from './features/dashboard/dashboard';
 import { MarketRates } from './features/market-rates/market-rates';
 import { Inventory } from './features/inventory/inventory';
 import { Vendors } from './features/vendors/vendors';
+import { Settings } from './features/settings/settings';
 import { authGuard } from './core/gaurds/auth.gaurd';
 import { LoginGaurd } from './core/gaurds/login.gaurd';
 
@@ -43,6 +44,11 @@ export const routes: Routes = [
     {
         path: 'vendors',
         component: Vendors,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'settings',
+        component: Settings,
         canActivate: [authGuard]
     },
     {

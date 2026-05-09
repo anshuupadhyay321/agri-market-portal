@@ -1,0 +1,29 @@
+/* Poore input group ko focus par blue dikhane ke liye */
+.input-group.custom-search:focus-within {
+    border-radius: 0.375rem;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    /* Bootstrap blue glow */
+    border: 1px solid #86b7fe;
+}
+
+/* Default borders ko manage karna */
+.custom-search .form-control,
+.custom-search .input-group-text {
+    border: 1px solid #dee2e6;
+}
+
+/* Beech ki lines hatana taaki box ek lage */
+.custom-search .border-start-0 {
+    border-left: none !important;
+}
+
+.custom-search .border-end-0 {
+    border-right: none !important;
+}
+
+/* Focus aane par individual focus ring band karna */
+.custom-search .form-control:focus {
+    box-shadow: none;
+    border-color: #dee2e6;
+    /* Border color maintain rakhna */
+}

@@ -1,0 +1,13 @@
+/* Password toggle button style */
+.input-group .btn {
+    border-left: none;
+    /* Beech ki line hatane ke liye */
+    background-color: #fff;
+    color: #6c757d;
+}
+
+.input-group .form-control:focus {
+    border-color: #dee2e6;
+    /* Blue outline manage karne ke liye */
+    box-shadow: none;
+}

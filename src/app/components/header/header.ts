@@ -10,24 +10,37 @@ import { Router } from '@angular/router';
 })
 export class Header implements OnInit {
   displayName: string = 'Guest';
+  isLoggedIn: boolean = false;
+
   constructor(private authService: Auth, private router: Router) { }
+
   ngOnInit() {
+    // Sabse behtar tarika: AuthService ke observable se hi status lein
     this.authService.currentUser$.subscribe(user => {
       if (user) {
-        this.displayName = user.fullName; // Ab yahan real name aayega
+        this.displayName = user.fullName;
+        this.isLoggedIn = true; // Agar user object hai toh logged in hai
       } else {
         this.displayName = 'Guest';
+        // Yahan double check karein token ke liye
+        this.isLoggedIn = !!localStorage.getItem('userToken');
       }
     });
   }
 
   onLogout() {
-    localStorage.removeItem('currentUser'); // Session clear
+    // 1. Local Storage clear karein
+    localStorage.removeItem('userToken');
     localStorage.removeItem('isLoggedIn');
 
-    // Variable ko reset karein (Sabse zaroori step)
+    // 2. UI variables reset karein
+    this.isLoggedIn = false;
+    this.displayName = 'Guest';
 
-    this.displayName = 'User';
-    this.router.navigate(['/login']); // Login page par bhejein
+    // 3. AuthService ko notify karein (agar logout method hai)
+    this.authService.logout();
+
+    // 4. Redirect
+    this.router.navigate(['/login']);
   }
 }

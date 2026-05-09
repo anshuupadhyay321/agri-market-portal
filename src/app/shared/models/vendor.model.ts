@@ -1,4 +1,4 @@
-export interface Vendor {
+export interface VendorItem {
     id: string;
     name: string;
     category: string; // e.g., Dairy, Vegetables, Packaging

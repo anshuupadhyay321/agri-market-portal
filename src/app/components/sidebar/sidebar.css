@@ -1,16 +1,87 @@
 :host {
     display: block;
+    height: 100%;
 }
 
+/* ========================================
+   SIDEBAR CONTAINER
+======================================== */
+
+.sidebar-container {
+    width: 250px;
+    height: 100%;
+    transition: width 0.3s ease-in-out;
+    overflow-x: hidden;
+}
+
+/* ========================================
+   NAVIGATION LINKS
+======================================== */
+
 .nav-link {
-    transition: 0.3s;
+    color: #333;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    border-radius: 8px;
+    padding: 10px;
 }
 
 .nav-link:hover {
     background-color: #e9ecef;
 }
 
+/* Active Link */
 .nav-link.active {
-    background-color: #198754;
-    /* Success green color */
+    background-color: #198754 !important;
+    color: white !important;
+}
+
+.nav-link.active i {
+    color: white !important;
+}
+
+/* ========================================
+   SIDEBAR TRANSITION
+======================================== */
+
+.sidebar-transition {
+    transition: width 0.3s ease;
+    width: 250px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* ========================================
+   COMPACT SIDEBAR
+======================================== */
+
+.compact-sidebar {
+    width: 85px !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
+
+/* Hide text in compact mode */
+.compact-sidebar .nav-text {
+    display: none;
+}
+
+/* Center align nav items */
+.compact-sidebar .nav-link {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+}
+
+/* Icon styling in compact mode */
+.compact-sidebar i {
+    font-size: 1.4rem;
+    margin: 0 !important;
+}
+
+/* Optional hover behavior */
+.compact-sidebar .nav-link:hover {
+    position: relative;
 }

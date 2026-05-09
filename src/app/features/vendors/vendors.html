@@ -2,9 +2,9 @@
     <h3 class="text-success mb-4"><i class="bi bi-people-fill me-2"></i>Vendor Directory</h3>
 
     <div class="row">
-        <!-- Form Section -->
+        <!-- LEFT: Form Section (col-md-4) -->
         <div class="col-md-4">
-            <div class="card shadow-sm border-0 mb-4">
+            <div class="card shadow-sm border-0 mb-4 sticky-top" style="top: 20px; z-index: 1000;">
                 <div class="card-header bg-success text-white fw-bold">Register New Vendor</div>
                 <div class="card-body">
                     <form [formGroup]="vendorForm" (ngSubmit)="addVendor()">
@@ -13,15 +13,27 @@
                             <input type="text" class="form-control" formControlName="name"
                                 placeholder="e.g. Sudha Dairy">
                         </div>
+
                         <div class="mb-3">
                             <label class="form-label small">Contact Person</label>
                             <input type="text" class="form-control" formControlName="contactPerson">
                         </div>
+
                         <div class="mb-3">
                             <label class="form-label small">Phone Number</label>
-                            <input type="text" class="form-control" formControlName="phone"
-                                placeholder="10 digit number">
+                            <div class="input-group">
+                                <span class="input-group-text bg-light text-muted">+91</span>
+                                <input type="text" class="form-control" formControlName="phone"
+                                    placeholder="10 digit number" maxlength="10">
+                            </div>
                         </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small">Shop/Office Address</label>
+                            <textarea class="form-control" formControlName="address" rows="2"
+                                placeholder="e.g. Shop No. 12, Main Mandi Road, Buxar"></textarea>
+                        </div>
+
                         <div class="mb-3">
                             <label class="form-label small">Category</label>
                             <select class="form-select" formControlName="category">
@@ -31,6 +43,7 @@
                                 <option value="Others">Others</option>
                             </select>
                         </div>
+
                         <button type="submit" class="btn btn-success w-100" [disabled]="vendorForm.invalid">
                             Save Vendor
                         </button>
@@ -39,29 +52,50 @@
             </div>
         </div>
 
-        <!-- Vendor List Section -->
+        <!-- RIGHT: Search + List Section (col-md-8) -->
         <div class="col-md-8">
-            <div class="row" *ngIf="vendorList.length > 0; else noVendors">
-                <div class="col-md-6 mb-3" *ngFor="let vendor of vendorList">
+
+            <!-- Search Bar -->
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body p-2">
+                    <!-- 'custom-search' class yahan zaroori hai -->
+                    <div class="input-group custom-search">
+                        <input type="text" class="form-control border-start-4 border-end-4 shadow-none"
+                            [(ngModel)]="searchTerm" placeholder="Search by Business, Name, Phone or Address...">
+
+                        <button class="input-group-text bg-white border-start-0 text-muted" *ngIf="searchTerm"
+                            (click)="searchTerm = ''" type="button" style="border: none;">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vendor Cards Grid -->
+            <div class="row" *ngIf="filteredVendors.length > 0; else noResults">
+                <div class="col-md-6 mb-3" *ngFor="let vendor of filteredVendors">
                     <div class="card h-100 border-0 shadow-sm border-top border-4"
                         [ngClass]="vendor.category === 'Dairy' ? 'border-primary' : 'border-warning'">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h5 class="card-title mb-0">{{vendor.name}}</h5>
+                                <h5 class="card-title mb-0 fw-bold">{{vendor.name}}</h5>
                                 <span class="badge bg-light text-dark border">{{vendor.category}}</span>
                             </div>
                             <p class="mb-1 text-muted small"><i class="bi bi-person me-2"></i>{{vendor.contactPerson}}
                             </p>
-                            <p class="mb-3"><i
+                            <p class="mb-2"><i
                                     class="bi bi-telephone-fill me-2 text-success"></i><strong>{{vendor.phone}}</strong>
                             </p>
+                            <p class="mb-3 text-muted small" *ngIf="vendor.address">
+                                <i class="bi bi-geo-alt-fill me-2 text-danger"></i>{{vendor.address}}
+                            </p>
 
-                            <div class="d-flex justify-content-between">
-                                <a [href]="'tel:' + vendor.phone" class="btn btn-sm btn-outline-primary">
+                            <div class="d-flex justify-content-between mt-auto">
+                                <a [href]="'tel:' + vendor.phone" class="btn btn-sm btn-outline-primary px-3">
                                     <i class="bi bi-telephone"></i> Call
                                 </a>
-                                <button class="btn btn-sm btn-outline-danger" (click)="deleteVendor(vendor.id)">
-                                    <i class="bi bi-trash"></i> Remove
+                                <button class="btn btn-sm btn-outline-danger px-3" (click)="deleteVendor(vendor.id)">
+                                    <i class="bi bi-trash"></i>Remove
                                 </button>
                             </div>
                         </div>
@@ -69,12 +103,38 @@
                 </div>
             </div>
 
-            <ng-template #noVendors>
+            <!-- No Results / Empty List State -->
+            <ng-template #noResults>
                 <div class="text-center p-5 bg-white rounded shadow-sm">
                     <i class="bi bi-person-plus fs-1 text-muted"></i>
-                    <p class="mt-3">Abhi tak koi vendor add nahi kiya gaya hai.</p>
+                    <p class="mt-3 text-muted">Koi vendor nahi mila. Naya vendor jodein ya search term badlein.</p>
                 </div>
             </ng-template>
+
+            <!-- Pagination Controls -->
+            <div class="card-footer bg-white border-top-0 py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <!-- Previous Button -->
+                    <button class="btn btn-sm btn-outline-success px-3" [disabled]="currentPage === 1"
+                        (click)="currentPage = currentPage - 1">
+                        <i class="bi bi-chevron-left"></i> Previous
+                    </button>
+
+                    <!-- Page Info -->
+                    <div class="text-center">
+                        <span class="text-muted small">
+                            Showing Page <strong>{{ currentPage }}</strong> of <strong>{{ totalPages }}</strong>
+                        </span>
+                    </div>
+
+                    <!-- Next Button -->
+                    <button class="btn btn-sm btn-outline-success px-3"
+                        [disabled]="currentPage === totalPages || totalPages === 0"
+                        (click)="currentPage = currentPage + 1">
+                        Next <i class="bi bi-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,17 +1,21 @@
-<app-header></app-header>
+<div class="app-wrapper">
+  <!-- 1. Header -->
+  <app-header></app-header>
 
-<div class="container-fluid">
-  <div class="row">
-    <!-- Sidebar -->
-    <div class="col-md-3 col-lg-2 p-0">
+  <div class="main-container">
+    <!-- 2. Sidebar Area -->
+    <div class="sidebar-wrapper">
       <app-sidebar></app-sidebar>
     </div>
 
-    <!-- Main Content -->
-    <main class="col-md-9 col-lg-10 px-4 py-3">
-      <router-outlet></router-outlet>
-    </main>
+    <!-- 3. Right Side (Content + Footer) -->
+    <div class="content-wrapper">
+      <main class="page-body">
+        <router-outlet></router-outlet>
+      </main>
+
+      <!-- Footer ab Content area ka hissa hai -->
+      <app-footer></app-footer>
+    </div>
   </div>
 </div>
-<!-- Footer yahan add kiya -->
-<app-footer></app-footer>

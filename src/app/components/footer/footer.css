@@ -1,8 +1,32 @@
-:host {
-    display: block;
-    width: 100%;
+.status-circle {
+    width: 10px;
+    height: 10px;
+    background-color: #28a745;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    /* Blinking Animation */
+    animation: blink 1.5s infinite ease-in-out;
 }
 
-.footer {
-    font-size: 0.9rem;
+@keyframes blink {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: scale(1.2);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.footer-text {
+    font-size: 0.85rem;
+    color: #6c757d;
 }

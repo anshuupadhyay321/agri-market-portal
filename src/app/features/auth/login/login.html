@@ -8,12 +8,23 @@
         <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
             <div class="mb-3">
                 <label class="form-label fw-bold">Email Address</label>
-                <input type="email" class="form-control" formControlName="email" placeholder="name@example.com">
+                <input type="email" class="form-control" formControlName="email" placeholder="name@example.com"
+                    required>
             </div>
 
             <div class="mb-4">
-                <label class="form-label fw-bold">Password</label>
-                <input type="password" class="form-control" formControlName="password" placeholder="******">
+                <label class="form-label small fw-bold">Password</label>
+                <div class="input-group custom-pass-group">
+                    <!-- Input Field: Right border hatayi gayi hai -->
+                    <input [type]="showPassword ? 'text' : 'password'" class="form-control border-end-0 shadow-none"
+                        formControlName="password" placeholder="*******" required>
+
+                    <!-- Icon Wrapper: Left border hatayi gayi hai -->
+                    <span class="input-group-text bg-white border-start-0 text-muted" (click)="togglePassword()"
+                        style="cursor: pointer;">
+                        <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+                    </span>
+                </div>
             </div>
 
             <button type="submit" class="btn btn-success w-100 py-2 fw-bold" [disabled]="loginForm.invalid">
