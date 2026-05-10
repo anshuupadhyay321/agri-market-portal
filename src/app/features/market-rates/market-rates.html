@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container-fluid py-4">
     <h3 class="mb-4 text-success">
         <i class="bi bi-graph-up-arrow me-2"></i>Mandi Market Watch
     </h3>
@@ -100,9 +100,9 @@
         </div>
     </div>
 
-    <div *ngIf="!isLoading && mandiData.length === 0" class="alert alert-info text-center mt-4">
+    <div *ngIf="!isLoading && mandiData.length === 0" class="alert alert-info text-center fw-bold mt-4">
         <i class="bi bi-info-circle me-2"></i>
-        Is selection ke liye koi data nahi mila.
+        <p class="text-muted mt-3 fw-bold">Is selection ke liye koi data nahi mila.</p>
     </div>
 
 </div>

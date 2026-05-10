@@ -1,29 +1,345 @@
-/* Poore input group ko focus par blue dikhane ke liye */
-.input-group.custom-search:focus-within {
-    border-radius: 0.375rem;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-    /* Bootstrap blue glow */
-    border: 1px solid #86b7fe;
+/* ======================================================
+   BASE LAYOUT
+====================================================== */
+
+:host {
+    display: block;
+    background-color: transparent;
 }
 
-/* Default borders ko manage karna */
-.custom-search .form-control,
-.custom-search .input-group-text {
-    border: 1px solid #dee2e6;
+/* ======================================================
+   PAGE HEADING
+====================================================== */
+
+h3 {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 1.5rem;
+
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+
+    color: #198754;
 }
 
-/* Beech ki lines hatana taaki box ek lage */
-.custom-search .border-start-0 {
-    border-left: none !important;
+h3 i {
+    font-size: 1.5rem;
 }
 
-.custom-search .border-end-0 {
-    border-right: none !important;
+/* ======================================================
+   COMMON CARD STYLING
+====================================================== */
+
+.card {
+    border-radius: 16px;
+
+    border: 1px solid #e5e7eb !important;
+
+    background-color: #ffffff;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.04);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background-color 0.25s ease,
+        border-color 0.25s ease;
 }
 
-/* Focus aane par individual focus ring band karna */
+/* ======================================================
+   FORM & SEARCH CARDS
+====================================================== */
+
+.vendor-form-card,
+.vendor-search-card,
+.vendor-item-card {
+    overflow: hidden;
+}
+
+.vendor-form-card {
+    z-index: 100;
+}
+
+.card-header {
+    padding: 14px 20px;
+
+    border-bottom: none;
+
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* ======================================================
+   FORM ELEMENTS
+====================================================== */
+
+.form-label {
+    margin-bottom: 0.45rem;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    color: #4b5563;
+}
+
+.form-control,
+.form-select,
+.input-group-text {
+    border: 1px solid #d1d5db;
+
+    background-color: #f8fafc;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+/* Inputs */
+
+.form-control,
+.form-select {
+    padding: 10px 12px;
+
+    border-radius: 10px;
+
+    box-shadow: none !important;
+}
+
+/* Input Group */
+
+.input-group-text {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+    color: #6b7280;
+}
+
+/* Focus */
+
+.form-control:focus,
+.form-select:focus {
+    background-color: #ffffff;
+
+    border-color: #198754 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(25, 135, 84, 0.12) !important;
+}
+
+/* ======================================================
+   SEARCH BAR
+====================================================== */
+
+.custom-search .form-control {
+    padding: 12px 18px;
+
+    border-radius: 12px;
+
+    font-size: 0.95rem;
+}
+
 .custom-search .form-control:focus {
-    box-shadow: none;
-    border-color: #dee2e6;
-    /* Border color maintain rakhna */
+    box-shadow:
+        0 4px 12px rgba(25, 135, 84, 0.1) !important;
+}
+
+/* ======================================================
+   VENDOR CARDS
+====================================================== */
+
+.vendor-item-card {
+    height: 100%;
+}
+
+.vendor-item-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Title */
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+
+    color: #1f2937;
+}
+
+/* Badge */
+
+.badge {
+    padding: 6px 10px;
+
+    border-radius: 8px;
+
+    font-weight: 500;
+}
+
+/* ======================================================
+   BUTTONS
+====================================================== */
+
+.btn-outline-primary,
+.btn-outline-danger,
+.btn-outline-success {
+    border-radius: 8px;
+
+    font-size: 0.85rem;
+    font-weight: 500;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-danger:hover,
+.btn-outline-success:hover {
+    transform: translateY(-1px);
+}
+
+/* ======================================================
+   EMPTY STATE
+====================================================== */
+
+.text-center.bg-white {
+    border-radius: 16px;
+
+    border: 1px dashed #d1d5db;
+}
+
+/* ======================================================
+   PAGINATION
+====================================================== */
+
+.vendor-pagination {
+    margin-top: 0.5rem;
+
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+
+    background-color: transparent !important;
+
+    border-top: none !important;
+}
+
+/* ======================================================
+   DARK MODE
+====================================================== */
+
+/* Heading */
+
+:host-context(body.dark-theme) h3 {
+    color: #4ade80 !important
+}
+
+/* Cards */
+
+:host-context(body.dark-theme) .card,
+:host-context(body.dark-theme) .vendor-form-card,
+:host-context(body.dark-theme) .vendor-search-card,
+:host-context(body.dark-theme) .vendor-item-card,
+:host-context(body.dark-theme) .vendor-search-card .card-body,
+:host-context(body.dark-theme) .text-center.bg-white {
+    background-color: #111827 !important;
+
+    border-color: #374151 !important;
+
+    color: #f9fafb !important;
+}
+
+/* Vendor Hover */
+
+:host-context(body.dark-theme) .vendor-item-card:hover {
+    background-color: #1f2937 !important;
+
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Text */
+
+:host-context(body.dark-theme) .card-title {
+    color: #ffffff !important;
+}
+
+:host-context(body.dark-theme) .vendor-item-card p,
+:host-context(body.dark-theme) .vendor-item-card strong,
+:host-context(body.dark-theme) .vendor-item-card small,
+:host-context(body.dark-theme) .vendor-item-card span,
+:host-context(body.dark-theme) .vendor-pagination .text-muted,
+:host-context(body.dark-theme) .vendor-pagination span {
+    color: #e5e7eb !important;
+}
+
+:host-context(body.dark-theme) .text-muted,
+:host-context(body.dark-theme) .form-control::placeholder,
+:host-context(body.dark-theme) textarea::placeholder {
+    color: #9ca3af !important;
+}
+
+/* Inputs */
+
+:host-context(body.dark-theme) .form-control,
+:host-context(body.dark-theme) .form-select,
+:host-context(body.dark-theme) .input-group-text,
+:host-context(body.dark-theme) .custom-search .form-control,
+:host-context(body.dark-theme) .custom-search .input-group-text {
+    background-color: #1f2937 !important;
+
+    border-color: #374151 !important;
+
+    color: #f9fafb !important;
+}
+
+/* Focus */
+
+:host-context(body.dark-theme) .form-control:focus,
+:host-context(body.dark-theme) .form-select:focus {
+    background-color: #111827 !important;
+
+    border-color: #198754 !important;
+
+    color: #ffffff !important;
+}
+
+/* Badge */
+
+:host-context(body.dark-theme) .badge.bg-light {
+    background-color: #374151 !important;
+
+    border-color: #4b5563 !important;
+
+    color: #f9fafb !important;
+}
+
+/* Pagination */
+
+:host-context(body.dark-theme) .vendor-pagination {
+    background-color: #111827 !important;
+
+    border-top: 1px solid #374151 !important;
+}
+
+/* Buttons */
+
+:host-context(body.dark-theme) .btn-outline-primary {
+    color: #93c5fd !important;
+    border-color: #3b82f6 !important;
+}
+
+:host-context(body.dark-theme) .btn-outline-danger {
+    color: #fca5a5 !important;
+    border-color: #ef4444 !important;
+}
+
+:host-context(body.dark-theme) .btn-outline-success {
+    color: #86efac !important;
+    border-color: #22c55e !important;
 }

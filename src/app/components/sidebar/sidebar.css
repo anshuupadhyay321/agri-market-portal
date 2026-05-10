@@ -1,87 +1,268 @@
-:host {
-    display: block;
-    height: 100%;
-}
-
-/* ========================================
+/* ======================================================
    SIDEBAR CONTAINER
-======================================== */
+====================================================== */
 
 .sidebar-container {
     width: 250px;
-    height: 100%;
-    transition: width 0.3s ease-in-out;
-    overflow-x: hidden;
+    min-height: 100vh;
+
+    background-color: #ffffff;
+
+    border-right: 1px solid #e5e7eb;
+
+    position: relative;
+    z-index: 2000;
+
+    overflow: visible !important;
+
+    transition:
+        width 0.3s ease,
+        background-color 0.3s ease;
 }
 
-/* ========================================
-   NAVIGATION LINKS
-======================================== */
-
-.nav-link {
-    color: #333;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    border-radius: 8px;
-    padding: 10px;
-}
-
-.nav-link:hover {
-    background-color: #e9ecef;
-}
-
-/* Active Link */
-.nav-link.active {
-    background-color: #198754 !important;
-    color: white !important;
-}
-
-.nav-link.active i {
-    color: white !important;
-}
-
-/* ========================================
-   SIDEBAR TRANSITION
-======================================== */
-
-.sidebar-transition {
-    transition: width 0.3s ease;
-    width: 250px;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-/* ========================================
+/* ======================================================
    COMPACT SIDEBAR
-======================================== */
+====================================================== */
 
 .compact-sidebar {
-    width: 85px !important;
+    width: 72px !important;
+
+    align-items: center;
+
     padding-left: 0.5rem !important;
     padding-right: 0.5rem !important;
+
+    overflow: visible !important;
 }
 
-/* Hide text in compact mode */
-.compact-sidebar .nav-text {
-    display: none;
+/* ======================================================
+   NAVIGATION
+====================================================== */
+
+.nav,
+.nav-item {
+    width: 100%;
+    overflow: visible !important;
 }
 
-/* Center align nav items */
-.compact-sidebar .nav-link {
+/* ======================================================
+   NAV LINKS
+====================================================== */
+
+.nav-link {
+    height: 48px;
+
     display: flex;
-    justify-content: center;
-    padding: 12px 0;
-}
+    align-items: center;
 
-/* Icon styling in compact mode */
-.compact-sidebar i {
-    font-size: 1.4rem;
-    margin: 0 !important;
-}
+    border-radius: 12px;
 
-/* Optional hover behavior */
-.compact-sidebar .nav-link:hover {
+    color: #374151 !important;
+
     position: relative;
+
+    overflow: visible !important;
+
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.2s ease;
+}
+
+/* Hover */
+
+.nav-link:hover {
+    background-color: #f3f4f6;
+
+    color: #198754 !important;
+}
+
+/* Active */
+
+.nav-link.active {
+    background-color: #198754 !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 4px 12px rgba(25, 135, 84, 0.2);
+}
+
+/* ======================================================
+   ICONS
+====================================================== */
+
+.nav-link i {
+    font-size: 1.1rem;
+
+    min-width: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ======================================================
+   COMPACT MODE ALIGNMENT
+====================================================== */
+
+.compact-sidebar .nav-link {
+    width: 48px;
+    height: 48px;
+
+    justify-content: center;
+
+    padding: 0 !important;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Icon Center */
+
+.compact-sidebar .nav-link i {
+    margin: 0 !important;
+
+    font-size: 1.2rem;
+}
+
+/* Hide Text */
+
+.compact-sidebar .nav-link span,
+.compact-sidebar .nav-link strong {
+    display: none !important;
+}
+
+/* ======================================================
+   SETTINGS DIVIDER
+====================================================== */
+
+.border-top {
+    border-color: #e5e7eb !important;
+}
+
+/* ======================================================
+   TOOLTIP
+====================================================== */
+
+.compact-sidebar .nav-link[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+
+    position: absolute;
+
+    left: calc(100% + 16px);
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    min-width: max-content;
+
+    background-color: #111827;
+    color: #ffffff;
+
+    padding: 8px 14px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    white-space: nowrap;
+
+    z-index: 999999;
+
+    pointer-events: none;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.25);
+
+    animation: tooltipFade 0.18s ease-out forwards;
+}
+
+/* Tooltip Arrow */
+
+.compact-sidebar .nav-link[data-tooltip]:hover::before {
+    content: '';
+
+    position: absolute;
+
+    left: calc(100% + 4px);
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    border-width: 6px;
+    border-style: solid;
+
+    border-color:
+        transparent #111827 transparent transparent;
+
+    z-index: 999999;
+}
+
+/* ======================================================
+   TOOLTIP ANIMATION
+====================================================== */
+
+@keyframes tooltipFade {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+}
+
+/* ======================================================
+   DARK MODE
+====================================================== */
+
+:host-context(body.dark-theme) .sidebar-container {
+    background-color: #0f172a !important;
+
+    border-right-color: #1e293b !important;
+}
+
+/* Nav Link */
+
+:host-context(body.dark-theme) .nav-link {
+    color: #cbd5e1 !important;
+}
+
+/* Hover */
+
+:host-context(body.dark-theme) .nav-link:hover {
+    background-color: #1e293b !important;
+
+    color: #22c55e !important;
+}
+
+/* Active */
+
+:host-context(body.dark-theme) .nav-link.active {
+    background-color: #198754 !important;
+
+    color: #ffffff !important;
+}
+
+/* Divider */
+
+:host-context(body.dark-theme) .border-top {
+    border-color: #334155 !important;
+}
+
+/* Tooltip */
+
+:host-context(body.dark-theme) .compact-sidebar .nav-link[data-tooltip]:hover::after {
+    background-color: #1f2937;
+
+    border: 1px solid #374151;
+}
+
+:host-context(body.dark-theme) .compact-sidebar .nav-link[data-tooltip]:hover::before {
+    border-color:
+        transparent #1f2937 transparent transparent;
 }

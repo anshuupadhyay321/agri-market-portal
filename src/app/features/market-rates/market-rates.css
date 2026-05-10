@@ -1,0 +1,214 @@
+/* --- Base Styles --- */
+:host {
+    display: block;
+}
+
+h3 {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* --- Filter Card --- */
+.card.bg-light {
+    border-radius: 15px;
+    background-color: #f8f9fa !important;
+    border: 1px solid #e9ecef !important;
+}
+
+.form-select {
+    border-radius: 10px;
+    padding: 10px;
+    border-color: #dee2e6;
+}
+
+.form-select:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.1);
+}
+
+/* --- Market Card Animation --- */
+.hover-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+.hover-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    text-transform: capitalize;
+}
+
+/* --- Price Section Styling --- */
+.bg-light-subtle {
+    background-color: #fcfdfd;
+}
+
+.fs-5 {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+/* --- Pagination & Alerts --- */
+.btn-outline-success {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.alert-info {
+    border-radius: 12px;
+    border: none;
+    background-color: #e0f2fe;
+    color: #0369a1;
+}
+
+/* ======================================================
+   DARK MODE OVERRIDES
+====================================================== */
+
+:host-context(body.dark-theme) .card.bg-light {
+    background-color: #1f2937 !important;
+    border-color: #374151 !important;
+}
+
+:host-context(body.dark-theme) .hover-card {
+    background-color: #1a202c !important;
+    border-color: #2d3748 !important;
+}
+
+:host-context(body.dark-theme) .text-muted {
+    color: #f6f6f6 !important;
+    font-weight: fo;
+}
+
+:host-context(body.dark-theme) .bg-light-subtle {
+    background-color: #2d3748 !important;
+}
+
+:host-context(body.dark-theme) .badge.bg-light {
+    background-color: #374151 !important;
+    color: #f9fafb !important;
+    border-color: #4b5563 !important;
+}
+
+:host-context(body.dark-theme) .form-select {
+    background-color: #111827 !important;
+    color: white !important;
+    border-color: #4ade80 !important;
+}
+
+:host-context(body.dark-theme) .alert-info {
+    background-color: #1e3a8a !important;
+    color: #bfdbfe !important;
+}
+
+:host-context(body.dark-theme) .card-footer {
+    background-color: transparent !important;
+    border-top: 1px solid #374151 !important;
+}
+
+
+/* ======================================================
+   MARKET RATES DARK MODE ENHANCEMENTS
+====================================================== */
+
+/* Main Cards */
+
+:host-context(body.dark-theme) .hover-card {
+    background-color: #111827 !important;
+    border-color: #374151 !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Card Body */
+
+:host-context(body.dark-theme) .card-body {
+    background-color: #111827 !important;
+}
+
+/* Commodity Title */
+
+:host-context(body.dark-theme) .card-title {
+    color: #f9fafb !important;
+}
+
+/* Normal Text */
+
+:host-context(body.dark-theme) .card-body p,
+:host-context(body.dark-theme) .card-body strong,
+:host-context(body.dark-theme) .small,
+:host-context(body.dark-theme) .text-muted {
+    color: #d1d5db !important;
+}
+
+/* Price Section */
+
+:host-context(body.dark-theme) .bg-light-subtle {
+    background-color: #1f2937 !important;
+    border-top: 1px solid #374151 !important;
+}
+
+/* Min Price */
+
+:host-context(body.dark-theme) .text-danger {
+    color: #fca5a5 !important;
+}
+
+/* Max Price */
+
+:host-context(body.dark-theme) .text-primary {
+    color: #93c5fd !important;
+}
+
+/* Modal Price */
+
+:host-context(body.dark-theme) .text-success {
+    color: #4ade80 !important;
+}
+
+/* Card Hover */
+
+:host-context(body.dark-theme) .hover-card:hover {
+    background-color: #172033 !important;
+    transform: translateY(-8px);
+    box-shadow:
+        0 12px 24px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Labels */
+
+:host-context(body.dark-theme) .form-label {
+    color: #e5e7eb !important;
+}
+
+/* Heading */
+
+:host-context(body.dark-theme) h3 {
+    color: #f9fafb !important;
+}
+
+/* Pagination */
+
+:host-context(body.dark-theme) .card-footer {
+    background-color: transparent !important;
+    border-top: 1px solid #f9fafd !important;
+}
+
+/* Empty State Alert */
+
+:host-context(body.dark-theme) .alert-info {
+    background-color: rgba(30, 64, 175, 0.18) !important;
+    color: #bfdbfe !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+/* Pagination Text */
+
+:host-context(body.dark-theme) .card-footer .text-center,
+:host-context(body.dark-theme) .card-footer span,
+:host-context(body.dark-theme) .card-footer strong {
+    color: #f9fafb !important;
+}

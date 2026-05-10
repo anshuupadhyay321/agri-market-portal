@@ -7,7 +7,8 @@ import { VendorItem } from '../../shared/models/vendor.model';
   selector: 'app-vendors',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
-  templateUrl: './vendors.html'
+  templateUrl: './vendors.html',
+  styleUrl: './vendors.css'
 })
 export class Vendors implements OnInit {
   VendorList: VendorItem[] = [];

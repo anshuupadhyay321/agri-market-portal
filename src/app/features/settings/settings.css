@@ -1,0 +1,103 @@
+/* --- Base Styles --- */
+:host {
+    display: block;
+}
+
+h3 {
+    font-weight: 700;
+}
+
+/* --- Cards Styling --- */
+.card {
+    border-radius: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+    padding: 15px 20px;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #f1f3f5;
+    color: #495057;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* --- Form Switches Customization --- */
+.form-check-input {
+    width: 3em;
+    height: 1.5em;
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.form-check-label {
+    padding-top: 3px;
+    padding-left: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #374151;
+}
+
+/* --- Regional Buttons --- */
+.btn-outline-success {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 8px 16px;
+}
+
+.btn-outline-success.active {
+    background-color: #198754;
+    color: white;
+}
+
+/* --- Select Styling --- */
+.form-select {
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* ======================================================
+   DARK MODE OVERRIDES
+====================================================== */
+
+:host-context(body.dark-theme) .card {
+    background-color: #1f2937 !important;
+    /* dark-surface */
+    border: 1px solid #374151 !important;
+}
+
+:host-context(body.dark-theme) .card-header {
+    background-color: #1a202c !important;
+    border-bottom-color: #374151;
+    color: #f9fafb;
+}
+
+:host-context(body.dark-theme) .form-check-label {
+    color: #e5e7eb;
+}
+
+:host-context(body.dark-theme) .form-label {
+    color: #9ca3af;
+}
+
+:host-context(body.dark-theme) .form-select {
+    background-color: #111827 !important;
+    border-color: #374151 !important;
+    color: #ffffff !important;
+}
+
+:host-context(body.dark-theme) .form-check-input {
+    background-color: #4b5563;
+    border-color: #4b5563;
+}
+
+:host-context(body.dark-theme) .form-check-input:checked {
+    background-color: #198754;
+}

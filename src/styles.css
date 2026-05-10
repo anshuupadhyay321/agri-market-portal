@@ -1,287 +1,131 @@
 /* ======================================================
-   GLOBAL & AUTH STYLES
+   1. GLOBAL VARIABLES (Custom Theme)
+====================================================== */
+:root {
+    --primary-green: #198754;
+    --secondary-green: #157347;
+    --light-bg: #f4f7f6;
+    --card-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    --transition-speed: 0.3s;
+}
+
+/* ======================================================
+   2. DARK THEME VARIABLES (Applied to body.dark-theme)
+====================================================== */
+body.dark-theme {
+    --light-bg: #0f172a;
+    background-color: #0f172a;
+    color: #f8fafc;
+}
+
+/* Global Dark Mode Smooth Transition */
+body {
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-bg);
+    margin: 0;
+}
+
+/* ======================================================
+   3. BOOTSTRAP OVERRIDES (Global)
 ====================================================== */
 
-.auth-container {
-    min-height: 100vh;
-    background-color: #f8f9fa;
-}
-
-.auth-card {
-    width: 100%;
-    max-width: 400px;
-    border-radius: 15px;
-}
-
-.form-control:focus {
-    border-color: #198754;
-    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
-}
-
+/* Buttons */
 .btn-success {
-    background-color: #198754;
-    transition: transform 0.2s ease;
+    background-color: var(--primary-green) !important;
+    border: none !important;
+    font-weight: 500;
+    padding: 8px 20px;
+    transition: all 0.2s ease-in-out;
 }
 
 .btn-success:hover {
-    transform: translateY(-2px);
-}
-
-/* ======================================================
-   APPLICATION LAYOUT
-====================================================== */
-
-.app-wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow: hidden;
-}
-
-.main-container {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-}
-
-/* Sidebar */
-
-.sidebar-wrapper {
-    height: 100%;
-    flex-shrink: 0;
-    border-right: 1px solid #dee2e6;
-    overflow: visible;
-}
-
-.sidebar-container,
-.sidebar-wrapper .nav-item {
-    overflow: visible;
-}
-
-/* Main Content */
-
-.content-wrapper {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    overflow-y: auto;
-    background-color: #f8f9fa;
-}
-
-.page-body {
-    flex: 1 0 auto;
-    padding: 1.5rem;
-}
-
-/* Footer */
-
-.footer-container {
-    width: 100%;
-    padding: 10px 20px;
-    background-color: #ffffff;
-    border-top: 1px solid #dee2e6;
-}
-
-/* ======================================================
-   DARK THEME
-====================================================== */
-
-body.dark-theme {
-    background-color: #121212;
-    color: #ffffff;
-}
-
-/* Layout */
-
-body.dark-theme .bg-light,
-body.dark-theme .sidebar-container,
-body.dark-theme .border-end,
-body.dark-theme .pagination-container,
-body.dark-theme .content-wrapper,
-body.dark-theme .footer-container,
-body.dark-theme .bg-white {
-    background-color: #1a1a1a;
-    border-color: #333333;
-    color: #ffffff;
-}
-
-/* Sidebar */
-
-body.dark-theme .sidebar-wrapper {
-    border-color: #333;
+    background-color: var(--secondary-green) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(25, 135, 84, 0.2);
 }
 
 /* Cards */
-
-body.dark-theme .card {
-    background-color: #242424;
-    border: 1px solid #383838;
-    color: #ffffff;
+.card {
+    border: none !important;
+    margin-bottom: 1.5rem;
+    transition: background-color var(--transition-speed) ease;
 }
 
-body.dark-theme .card-header,
-body.dark-theme .card-footer {
-    background-color: #2d2d2d;
-    border-bottom: 1px solid #383838;
-    color: #28a745;
+/* Form Controls */
+.form-control,
+.form-select {
+    border: 1px solid #dee2e6;
 }
 
-/* Tables */
-
-body.dark-theme .table,
-body.dark-theme .table-responsive,
-body.dark-theme .table td,
-body.dark-theme .table th {
-    background-color: #1e1e1e;
-    color: #ffffff;
-    border-color: #333;
-}
-
-/* Forms */
-
-body.dark-theme .form-control,
-body.dark-theme .form-select {
-    background-color: #2b2b2b;
-    border-color: #444444;
-    color: #ffffff;
-}
-
-body.dark-theme .form-control:focus {
-    background-color: #333;
-    border-color: #198754;
-}
-
-/* Placeholder */
-
-body.dark-theme ::placeholder {
-    color: #888;
-}
-
-/* Navigation */
-
-body.dark-theme .nav-link {
-    color: #bbbbbb;
-}
-
-body.dark-theme .nav-link:hover {
-    background-color: #2d2d2d;
-}
-
-body.dark-theme .nav-link.active {
-    background-color: #198754;
-    color: #ffffff;
-}
-
-/* Buttons */
-
-body.dark-theme .btn-outline-success {
-    color: #28a745;
-    border-color: #28a745;
-}
-
-body.dark-theme .btn-outline-success:hover {
-    background-color: #28a745;
-    color: #ffffff;
-}
-
-/* Text */
-
-body.dark-theme .text-dark,
-body.dark-theme strong,
-body.dark-theme .text-muted,
-body.dark-theme span.fw-bold {
-    color: #ffffff;
-}
-
-body.dark-theme .text-success {
-    color: #28a745;
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.1);
 }
 
 /* ======================================================
-   SIDEBAR TOOLTIP
+   4. UTILITY CLASSES (Project Specific)
 ====================================================== */
 
-.compact-sidebar .nav-link {
-    position: relative;
+/* Custom Scrollbar for the whole app */
+::-webkit-scrollbar {
+    width: 8px;
 }
 
-.compact-sidebar .nav-link[data-tooltip]:hover::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    left: 70px;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 6px 12px;
-    border-radius: 4px;
-    background-color: #333;
-    color: #ffffff;
-    font-size: 14px;
-    white-space: nowrap;
-    z-index: 9999;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-    pointer-events: none;
+::-webkit-scrollbar-track {
+    background: transparent;
 }
 
-.compact-sidebar .nav-link[data-tooltip]:hover::before {
-    content: '';
-    position: absolute;
-    left: 60px;
-    top: 50%;
-    transform: translateY(-50%);
-    border: 6px solid transparent;
-    border-right-color: #333;
-    z-index: 9999;
+::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 10px;
 }
 
-/* Dark Mode Sidebar Tooltip */
-
-body.dark-theme .compact-sidebar .nav-link[data-tooltip]:hover::after {
-    background-color: #198754;
+::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
 }
 
-body.dark-theme .compact-sidebar .nav-link[data-tooltip]:hover::before {
-    border-right-color: #198754;
+/* Table Hover Global Effect */
+.table-hover tbody tr:hover {
+    background-color: rgba(25, 135, 84, 0.03) !important;
+}
+
+/* Badge Styling */
+.badge {
+    font-weight: 500 !important;
+    letter-spacing: 0.3px;
 }
 
 /* ======================================================
-   HEADER BRAND TOOLTIP
+   5. COMPACT MODE UTILITIES (For Sidebar)
 ====================================================== */
 
-.navbar-brand[data-tooltip] {
-    position: relative;
+/* Jab Sidebar compact ho toh uska width manage karne ke liye */
+.sidebar-compact {
+    width: 80px !important;
 }
 
-.navbar-brand[data-tooltip]:hover::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    top: 130%;
-    left: 20px;
-    padding: 5px 12px;
-    border-radius: 4px;
-    background-color: #333;
-    color: #ffffff;
-    font-size: 12px;
-    white-space: nowrap;
-    z-index: 10001;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+.sidebar-compact .nav-link span {
+    display: none;
+    /* Text chhupane ke liye */
 }
 
-.navbar-brand[data-tooltip]:hover::before {
-    content: '';
-    position: absolute;
-    top: 115%;
-    left: 30px;
-    border: 6px solid transparent;
-    border-bottom-color: #333;
-    z-index: 10001;
+/* ======================================================
+   6. ANIMATIONS
+====================================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* Dark Mode Header Tooltip */
-
-body.dark-theme .navbar-brand[data-tooltip]:hover::after {
-    background-color: #198754;
-}
-
-body.dark-theme .navbar-brand[data-tooltip]:hover::before {
-    border-bottom-color: #198754;
+.page-body {
+    animation: fadeIn 0.4s ease-out;
 }
