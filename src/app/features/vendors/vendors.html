@@ -9,33 +9,33 @@
                 <div class="card-body">
                     <form [formGroup]="vendorForm" (ngSubmit)="addVendor()">
                         <div class="mb-3">
-                            <label class="form-label small">Business Name</label>
-                            <input type="text" class="form-control" formControlName="name"
+                            <label for="businessname" class="form-label small">Business Name</label>
+                            <input type="text" class="form-control" formControlName="name" id="businessname"
                                 placeholder="e.g. Sudha Dairy">
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label small">Contact Person</label>
-                            <input type="text" class="form-control" formControlName="contactPerson">
+                            <label for="contactperson" class="form-label small">Contact Person</label>
+                            <input type="text" class="form-control" formControlName="contactPerson" id="contactperson">
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label small">Phone Number</label>
+                            <label for="phonenumber" class="form-label small">Phone Number</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light text-muted">+91</span>
-                                <input type="text" class="form-control" formControlName="phone"
+                                <input type="text" class="form-control" formControlName="phone" id="phonenumber"
                                     placeholder="10 digit number" maxlength="10">
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label small">Shop/Office Address</label>
-                            <textarea class="form-control" formControlName="address" rows="2"
+                            <label for="address" class="form-label small">Shop/Office Address</label>
+                            <textarea class="form-control" formControlName="address" rows="2" id="address"
                                 placeholder="e.g. Shop No. 12, Main Mandi Road, Buxar"></textarea>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label small">Category</label>
+                            <label for="category" class="form-label small">Category</label>
                             <select class="form-select" formControlName="category">
                                 <option value="Dairy">Dairy Products</option>
                                 <option value="Grains">Grains & Spices</option>

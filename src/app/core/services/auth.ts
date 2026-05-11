@@ -1,30 +1,30 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../shared/models/user.model';
 import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
-import { CanActivate, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Auth {
-  private USERS_KEY = 'portal-users';
+  private readonly USERS_KEY = 'portal-users';
 
   // 1. BehaviorSubject banayein jo current user ki state hold karega
   // Iska initial value localStorage se uthayenge
-  private currentUserSubject = new BehaviorSubject<User | null>(
+  private readonly currentUserSubject = new BehaviorSubject<User | null>(
     JSON.parse(localStorage.getItem('currentUser') || 'null')
   );
 
   // 2. Iska observable banayein jise components subscribe karenge
   currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private router: Router) { }
+  constructor(private readonly router: Router) { }
 
 
 
   register(userData: User): Observable<any> {
     const users = JSON.parse(localStorage.getItem(this.USERS_KEY) || '[]');
-    if (users.find((u: any) => u.email === userData.email)) {
+    if (users.some((u: any) => u.email === userData.email)) {
       return throwError(() => new Error('User already exists!'));
     }
     users.push(userData);

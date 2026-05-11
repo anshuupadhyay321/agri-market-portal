@@ -3,7 +3,7 @@ import { Router, CanActivate } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class LoginGaurd implements CanActivate {
-    constructor(private router: Router) { }
+    constructor(private readonly router: Router) { }
 
     canActivate(): boolean {
         // Yahan bhi wahi 'currentUser' check karein jo upar kiya hai

@@ -7,10 +7,10 @@ import { MandiApiResponse, MandiRates } from '../../shared/models/mandi.model';
 })
 export class Mandi {
   // Ye sample API URL hai (Actual GOI API key ke saath use hoti hai)
-  private apiUrl = '/api-mandi/resource/9ef84268-d588-465a-a308-a864a43d0070';
-  private apiKey = '579b464db66ec23bdd000001ec8dcbaab22d47d65c774f21ae734e46';
+  private readonly apiUrl = '/api-mandi/resource/9ef84268-d588-465a-a308-a864a43d0070';
+  private readonly apiKey = '579b464db66ec23bdd000001ec8dcbaab22d47d65c774f21ae734e46';
 
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
   getMandiData() {
     return this.http.get(this.apiUrl, {
     });
@@ -31,7 +31,7 @@ export class Mandi {
     }
     return this.http.get<MandiApiResponse>(url).pipe(
       map((response: MandiApiResponse) => {
-        if (!response || !response.records) return [];
+        if (!response?.records) return [];
 
         // Aapka wahi transformation logic jo pehle tha
         return response.records.map((record: any) => ({
@@ -58,7 +58,7 @@ export class Mandi {
     return this.http.get<MandiApiResponse>(fullUrl).pipe(
       map((response: MandiApiResponse) => {
         // Safety check: Agar response khali ho toh empty array return karein
-        if (!response || !response.records) return [];
+        if (!response?.records) return [];
 
         return response.records.map((record: any) => {
           const transformedRecord: MandiRates = {

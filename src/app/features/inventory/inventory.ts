@@ -17,7 +17,7 @@ export class Inventory implements OnInit {
   itemsPerPage: number = 6;
 
   inventoryForm: FormGroup;
-  constructor(private fb: FormBuilder) {
+  constructor(private readonly fb: FormBuilder) {
     this.inventoryForm = this.fb.group({
       itemName: ['', [Validators.required]],
       category: ['Raw Material'],
@@ -39,7 +39,7 @@ export class Inventory implements OnInit {
       const formValues = this.inventoryForm.value;
 
       const newItem: InventoryItem = {
-        id: Math.random().toString(36).substr(2, 9),
+        id: Math.random().toString(36).slice(2, 9),
         itemName: formValues.itemName,
         category: formValues.category || 'Raw Material',
         quantity: Number(formValues.quantity), // Pakka karein ki ye number ho

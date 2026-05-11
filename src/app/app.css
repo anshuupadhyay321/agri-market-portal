@@ -25,8 +25,6 @@
     flex: 1;
 
     min-height: 0;
-
-    /* overflow: visible; */
 }
 
 /* ======================================================
@@ -34,8 +32,6 @@
 ====================================================== */
 
 .sidebar-wrapper {
-    /* height: 100%; */
-
     flex-shrink: 0;
 
     overflow: visible !important;

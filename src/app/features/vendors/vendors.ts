@@ -18,7 +18,7 @@ export class Vendors implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 6;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private readonly fb: FormBuilder) {
     this.vendorForm = this.fb.group({
       name: ['', [Validators.required]],
       category: ['Dairy'],
@@ -41,7 +41,7 @@ export class Vendors implements OnInit {
       const formValues = this.vendorForm.value;
 
       const newVendor = {
-        id: Math.random().toString(36).substr(2, 9),
+        id: Math.random().toString(36).slice(2, 9),
         name: formValues.name,
         contactPerson: formValues.contactPerson,
         // Phone number format fix
@@ -96,7 +96,7 @@ export class Vendors implements OnInit {
       vendor.name.toLowerCase().includes(search) ||
       vendor.contactPerson.toLowerCase().includes(search) ||
       vendor.phone.includes(search) ||
-      (vendor.address && vendor.address.toLowerCase().includes(search))
+      (vendor.address?.toLowerCase()?.includes(search))
     );
   }
 

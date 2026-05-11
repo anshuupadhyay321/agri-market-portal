@@ -65,6 +65,7 @@ h3 i {
     border-radius: 10px;
 
     border: 1px solid #d1d5db;
+    background-color: #f8fafc;
 
     padding: 10px 12px;
 
@@ -82,21 +83,6 @@ h3 i {
         0 0 0 3px rgba(25, 135, 84, 0.12);
 }
 
-.form-control,
-.form-select {
-    border-radius: 10px;
-
-    border: 1px solid transparent;
-
-    background-color: #f8fafc;
-
-    padding: 10px 12px;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        background-color 0.2s ease;
-}
 
 /* Button */
 
@@ -336,7 +322,7 @@ h3 i {
 :host-context(body.dark-theme) .bg-info.text-dark {
     background-color: rgba(59, 130, 246, 0.18) !important;
 
-    color: #93c5fd !important;
+    color: #67a4eb !important;
 }
 
 /* Footer */

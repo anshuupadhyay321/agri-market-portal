@@ -14,10 +14,16 @@
                         <label class="form-check-label" for="themeSwitch">Enable Dark Mode</label>
                     </div>
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch"
+
+                        <input id="compactSwitch" class="form-check-input" type="checkbox" role="switch"
                             [checked]="settingsService.compactMode()"
+                            [attr.aria-checked]="settingsService.compactMode()"
                             (change)="settingsService.compactMode.set(!settingsService.compactMode())">
-                        <label class="form-check-label" for="compactSwitch">Compact Sidebar View</label>
+
+                        <label class="form-check-label" for="compactSwitch">
+                            Compact Sidebar View
+                        </label>
+
                     </div>
                 </div>
             </div>
@@ -28,14 +34,14 @@
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-white fw-bold">Regional & Business</div>
                 <div class="card-body">
-                    <label class="form-label small fw-bold">Default Mandi Region</label>
+                    <label for="mandiregion" class="form-label small fw-bold">Default Mandi Region</label>
                     <select class="form-select mb-3">
                         <option selected>Buxar, Bihar</option>
                         <option>Patna, Bihar</option>
                         <option>Varanasi, UP</option>
                     </select>
 
-                    <label class="form-label small fw-bold">Language</label>
+                    <label for="language" class="form-label small fw-bold">Language</label>
                     <div class="d-flex gap-2">
                         <button class="btn btn-outline-success btn-sm active">English</button>
                         <button class="btn btn-outline-success btn-sm">Hindi (हिंदी)</button>

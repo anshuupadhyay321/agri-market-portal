@@ -216,7 +216,7 @@
 :host-context(body.dark-theme) .table thead th {
     background-color: #1f2937 !important;
 
-    color: #198754 !important;
+    color: #35a972 !important;
 
     border-color: #374151 !important;
 }
@@ -275,7 +275,7 @@
 :host-context(body.dark-theme) .alert-warning {
     background-color: rgba(217, 119, 6, 0.12) !important;
 
-    color: #fde68a !important;
+    color: #f9c02d !important;
 
     border: 1px solid rgba(217, 119, 6, 0.25) !important;
 }

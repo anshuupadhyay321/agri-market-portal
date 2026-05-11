@@ -15,7 +15,7 @@ export class Login {
   // login.ts mein variable add karein
   showPassword: boolean = false;
 
-  constructor(private fb: FormBuilder, private authService: Auth, private router: Router) {
+  constructor(private readonly fb: FormBuilder, private readonly authService: Auth, private readonly router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]

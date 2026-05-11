@@ -3,7 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class SettingsService {
-    private platformId = inject(PLATFORM_ID);
+    private readonly platformId = inject(PLATFORM_ID);
     // Signals for state management
     darkMode = signal<boolean>(false);
     compactMode = signal<boolean>(false);

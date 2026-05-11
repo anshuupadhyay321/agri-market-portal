@@ -77,6 +77,7 @@ h3 {
 :host-context(body.dark-theme) .hover-card {
     background-color: #1a202c !important;
     border-color: #2d3748 !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35) !important;
 }
 
 :host-context(body.dark-theme) .text-muted {
@@ -86,6 +87,7 @@ h3 {
 
 :host-context(body.dark-theme) .bg-light-subtle {
     background-color: #2d3748 !important;
+    border-top: 1px solid #374151 !important;
 }
 
 :host-context(body.dark-theme) .badge.bg-light {
@@ -101,13 +103,14 @@ h3 {
 }
 
 :host-context(body.dark-theme) .alert-info {
-    background-color: #1e3a8a !important;
+    background-color: rgba(30, 64, 175, 0.18) !important;
     color: #bfdbfe !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
 }
 
 :host-context(body.dark-theme) .card-footer {
     background-color: transparent !important;
-    border-top: 1px solid #374151 !important;
+    border-top: 1px solid #f9fafd !important;
 }
 
 
@@ -115,13 +118,6 @@ h3 {
    MARKET RATES DARK MODE ENHANCEMENTS
 ====================================================== */
 
-/* Main Cards */
-
-:host-context(body.dark-theme) .hover-card {
-    background-color: #111827 !important;
-    border-color: #374151 !important;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35) !important;
-}
 
 /* Card Body */
 
@@ -142,13 +138,6 @@ h3 {
 :host-context(body.dark-theme) .small,
 :host-context(body.dark-theme) .text-muted {
     color: #d1d5db !important;
-}
-
-/* Price Section */
-
-:host-context(body.dark-theme) .bg-light-subtle {
-    background-color: #1f2937 !important;
-    border-top: 1px solid #374151 !important;
 }
 
 /* Min Price */
@@ -188,21 +177,6 @@ h3 {
 
 :host-context(body.dark-theme) h3 {
     color: #f9fafb !important;
-}
-
-/* Pagination */
-
-:host-context(body.dark-theme) .card-footer {
-    background-color: transparent !important;
-    border-top: 1px solid #f9fafd !important;
-}
-
-/* Empty State Alert */
-
-:host-context(body.dark-theme) .alert-info {
-    background-color: rgba(30, 64, 175, 0.18) !important;
-    color: #bfdbfe !important;
-    border: 1px solid rgba(59, 130, 246, 0.2) !important;
 }
 
 /* Pagination Text */
